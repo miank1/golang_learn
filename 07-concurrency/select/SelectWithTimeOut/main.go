@@ -6,14 +6,13 @@ import (
 )
 
 func main() {
-	ch := make(chan string, 1)
+	ch := make(chan string)
 
-	// ch <- "Hello !!!" // If you don't receive a message on channel for a while then case with timer gets executed.
 	select {
 	case msg := <-ch:
-		fmt.Println("Received:", msg)
+		fmt.Println(msg)
+
 	case <-time.After(2 * time.Second):
-		fmt.Println("Timeout: no message received")
+		fmt.Println("timeout")
 	}
-	close(ch)
 }
