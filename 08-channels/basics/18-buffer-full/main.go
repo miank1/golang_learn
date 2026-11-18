@@ -17,17 +17,15 @@ func main() {
 	fmt.Println("Initial Length :", len(ch))
 	wg.Add(1)
 
+	// sender
 	go func() {
+		defer wg.Done()
 		ch <- 30
 	}()
 
+	// receiver
 	fmt.Println("Receive Value ", <-ch)
-
-	go func() {
-		wg.Wait()
-		close(ch)
-	}()
-
+	wg.Wait()
 	fmt.Println("Length Again :", len(ch))
 
 }
