@@ -14,8 +14,18 @@ func main() {
 		ch <- 30
 	}()
 
-	for x := range ch {
-		fmt.Println(x)
+	value1 := <-ch
+	fmt.Println("Received:", value1)
+
+	value2 := <-ch
+	fmt.Println("Received:", value2)
+
+	value3 := <-ch
+	fmt.Println("Received:", value3)
+
+	_, ok := <-ch
+	if !ok {
+		fmt.Println("Channel closed")
 	}
 
 }
